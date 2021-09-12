@@ -1,113 +1,122 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div id="Homes">
+    <div class="header">
+
+    </div>
+    <div v-for="house in homes"
+      v-bind:key="house.id"
+      class="house"
+      :class="house.type">
+      <div class="image">
+        <p class="type">{{ house.type }}</p>
+      </div>
+      <div class="bottom">
+        <p class="title">{{ house.title }}</p>
+        <p class="address">{{ house.address }}</p>
+        <p class="price">New Properties for Sale from <span>£{{ house.price }}</span></p>
+        <p class="desc">Shared Ownership Available</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      homes: []
+    }
+  },
+  created () {
+    axios
+      .get('https://603e38c548171b0017b2ecf7.mockapi.io/homes')
+      .then(response => (this.homes = response.data))
+  },
+  watch: {
+    homes: {
+      handler () {
+        for (let i = 0; i < this.homes.length; i++) {
+          this.homes[i].price = this.homes[i].price.toLocaleString('en')
+        }
+      }
     }
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+#Home {
+  width: 1180px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
+.house {
+  width: 380px;
+  height: 380px;
+  margin: 10px;
   display: inline-block;
-  margin: 0 10px;
+  border: 1px solid #D8D8D8
 }
-a {
-  color: #42b983;
+.image {
+  width: 380px;
+  height: 227px;
+  background-image: url(../assets/house.png);
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.bottom {
+  padding: 0 20px;
+}
+.bottom > * {
+  font-family: Open Sans;
+  text-align: left;
+  margin: 5px 0;
+  letter-spacing: 0px;
+}
+.type {
+  width: 134px;
+  height: 30px;
+  background-color: #006F79;
+  color: #FFF;
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  font-family: Open Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+}
+.title {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+  margin-top: 15px;
+}
+.address {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+.price {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-top: 15px;
+}
+span {
+  font-weight: 700;
+}
+.desc {
+  font-size: 14px;
 }
 </style>
