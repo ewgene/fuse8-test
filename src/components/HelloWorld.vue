@@ -1,7 +1,9 @@
 <template>
   <div id="Homes">
     <div class="header">
-
+      <h1>Our Latest Developments</h1>
+      <label for="filter">Filter</label>
+      <input type="text" id="filter" />
     </div>
     <div v-for="house in homes"
       v-bind:key="house.id"
@@ -16,6 +18,9 @@
         <p class="price">New Properties for Sale from <span>£{{ house.price }}</span></p>
         <p class="desc">Shared Ownership Available</p>
       </div>
+    </div>
+    <div class="footer">
+      <button class="more">See more</button>
     </div>
   </div>
 </template>
@@ -52,6 +57,45 @@ export default {
 <style scoped>
 #Home {
   width: 1180px;
+}
+.header {
+  width: 100%;
+  height: 224px;
+  position: relative;
+}
+h1 {
+  font-family: Open Sans;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 49px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #45852D;
+}
+#filter {
+  position: absolute;
+  top: 129px;
+  left: 117px;
+  width: 418px;
+  height: 50px;
+  border: 1px solid #D8D8D8;
+  box-sizing: border-box;
+  border-radius: 25px;
+}
+label {
+  position: absolute;
+  top: 141px;
+  left: 70px;
+  width: 195px;
+  height: 26px;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  text-align: left;
 }
 .house {
   width: 380px;
@@ -118,5 +162,27 @@ span {
 }
 .desc {
   font-size: 14px;
+}
+.footer {
+  position: relative;
+  width: 100%;
+  height: 185px;
+  text-align: center;
+  padding-top: 30px;
+}
+.more {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #D8D8D8;
+  box-sizing: border-box;
+  border-radius: 25px;
+  display: inline-block;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.3px;
+  color: #363636;
 }
 </style>
